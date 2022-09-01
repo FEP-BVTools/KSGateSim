@@ -4,7 +4,7 @@
 #
 from SerialTest import SerialCtrl
 from Utility import CMDlink
-from  Judge import CheckCMDType
+from  Judge import CheckCMDType,AdvenceCheck,BasicReturnCodeFuc
 
 def DisplayCmdLinks(CmdlinksInfo):
     i=0
@@ -38,8 +38,8 @@ if TestMode=='Serial':
         ser.GetDebugInfo()
 else:
     CMDL=CMDlink()
-    CmdFileName=CMDL.GetCMDGroup()
-    CmdlinksInfo=CMDL.CmdlinksIndo(CmdFileName)
+    CmdFileName=CMDL.GetCMDGroup('./Commands')
+    CmdlinksInfo=CMDL.CmdlinksInfo('Commands',CmdFileName)
     DisplayCmdLinks(CmdlinksInfo)
     print()
     CmdlinksList=[]
@@ -47,6 +47,14 @@ else:
         CmdlinksList.append(x)
 
     UserCmd=input('請輸入')
+    CmdName = CmdlinksList[eval(UserCmd)-1]
+    cmd = CmdlinksInfo[CmdName]['commmand']
+    cmd = CMDL.GetHexCommand(cmd)
+    CMDType=CheckCMDType(cmd)
+    CMDType = AdvenceCheck(cmd, CMDType)
+    ReturnCode = FakeReturnCodeFuc(CMDType)
+    for x in ReturnCode:
+        print(hex(x).upper()[2::],end=' ')
 
 
 #批量測試使用
@@ -54,4 +62,7 @@ else:
     #     CmdName = CmdlinksList[UserCmd]
     #     cmd = CmdlinksInfo[CmdName]['commmand']
     #     cmd = CMDL.GetHexCommand(cmd)
-    #     CheckCMDType(cmd)
+    #     CMDType=CheckCMDType(cmd)
+    #     CMDType=AdvenceCheck(cmd, CMDType)
+    #     ReturnCode=ReturnCodeFuc(CMDType)
+    #     print(ReturnCode)

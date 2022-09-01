@@ -3,10 +3,9 @@ import csv
 
 #快捷指令
 class CMDlink():
-
-    def GetCMDGroup(self):
-        if len(os.listdir('./Commands')) != 0:
-            CommandGroupList = os.listdir('./Commands')
+    def GetCMDGroup(self,FilePath):
+        if len(os.listdir(FilePath)) != 0:
+            CommandGroupList = os.listdir(FilePath)
 
             for x in range(1, len(CommandGroupList) + 1):
                 print('{}.{}'.format(x, CommandGroupList[x - 1]))
@@ -25,8 +24,8 @@ class CMDlink():
                 print(row)
 
 
-    def CmdlinksIndo(self,CmdFileName):
-        filepath = './Commands/{}'.format(CmdFileName)
+    def CmdlinksInfo(self,FilePath,CmdFileName):
+        filepath = './{}/{}'.format(FilePath,CmdFileName)
         # 指令名稱,輸出類型,接收類型,指令
         CMDDict = {}
         CMDFile = open(filepath, encoding='utf8')

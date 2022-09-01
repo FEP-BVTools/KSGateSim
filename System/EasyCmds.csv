@@ -1,4 +1,4 @@
 PLC Reboot,H,H,02 ff 05 90 00 68 00 00 68
-PLC Firmware_Version,H,H,02 ff 05 90 10 00 00 00 78
+PLC Firmware Version,H,H,02 ff 05 90 10 00 00 00 78
 Flap Position,H,H,02 ff 05 81 20 00 00 00 59
 Following Alert,H,H,02 ff 05 81 90 00 00 00 e9
