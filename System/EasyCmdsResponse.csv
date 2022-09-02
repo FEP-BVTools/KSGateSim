@@ -1,14 +1,14 @@
-PLC Reboot,H,H,02 ff 05 90 00 68 00 00 68
-PLC Firmware Version ,H,H,02 ff 05 90 10 00 00 00 78
-Flap Action_Open_A ,H,H,02 ff 05 81 10 00 00 00 69
-Flap_Action_Open_B ,H,H,02 ff 05 81 10 00 02 00 6b
-Flap_Action_AllClose ,H,H,02 ff 05 81 10 00 01 00 68
-Flap_Position ,H,H,02 ff 05 81 20 00 00 00 59
-Direction_CMDMode,H,H,02 ff 05 81 30 02 02 00 49
-Direction_AutoMode,H,H,02 ff 05 81 30 01 01 00 49
-Direction_DefaultMode,H,H,02 ff 05 81 30 03 01 00 4b
-Set_Parameters_TypeA,H,H,02 ff 09 81 40 00 00 04 01 04 01 07 32
-Set_Parameters_TypeB,H,H,02 ff 09 81 40 00 01 04 00 05 03 0a 3c
-Save_Parameters,H,H,02 ff 05 81 50 00 00 00 29
-Query_Parameters,H,H,02 ff 05 81 50 00 01 00 28 
+PLC Reboot,H,H,FF 02 02 90 00 6F
+PLC Firmware Version ,H,H,FF 02 0A 50 4C 41 20 19 01 09 00 90 00 0B
+Flap Action OpenA ,H,H,FF 02 02 90 00 6F
+Flap Action OpenB ,H,H,FF 02 02 90 00 6F
+Flap Action AllClose ,H,H,FF 02 02 90 00 6F
+Flap Position,H,H,FF 02 03 02 90 00 6C
+Direction CMDMode,H,H,FF 02 02 90 00 6F
+Direction AutoMode,H,H,02 ff 05 81 30 01 01 00 49
+Direction DefaultMode,H,H,02 ff 05 81 30 03 01 00 4b
+Set Parameters TypeA,H,H,02 ff 09 81 40 00 00 04 01 04 01 07 32
+Set Parameters TypeB,H,H,02 ff 09 81 40 00 01 04 00 05 03 0a 3c
+Save Parameters,H,H,02 ff 05 81 50 00 00 00 29
+Query Parameters,H,H,02 ff 05 81 50 00 01 00 28
 Following Alert,H,H,02 ff 05 81 90 00 00 00 e9

@@ -4,7 +4,7 @@
 #
 from SerialTest import SerialCtrl
 from Utility import CMDlink
-from  Judge import CheckCMDType,AdvenceCheck,BasicReturnCodeFuc
+from  Judge import CheckCMDType,AdvenceCheck,CheckEDC,CrudeReturnCode,CheckCmdTypeLen
 
 def DisplayCmdLinks(CmdlinksInfo):
     i=0
@@ -17,7 +17,7 @@ def DisplayCmdLinks(CmdlinksInfo):
 
 TestModeList=['User','Serial']
 
-TestMode=TestModeList[0]
+TestMode=TestModeList[1]
 
 
 if TestMode=='Serial':
@@ -35,7 +35,22 @@ if TestMode=='Serial':
         print('連接失敗')
 
     while(1):
-        ser.GetDebugInfo()
+        cmd=ser.GetDebugInfo()
+        if len(cmd)!=0:
+            if CheckEDC(cmd)==True:
+                CMDType=CheckCMDType(cmd)
+                if CheckCmdTypeLen(cmd,CMDType)==True:
+                    CMDType = AdvenceCheck(cmd, CMDType)
+                    print(CMDType)
+                    ReturnCode = CrudeReturnCode(CMDType)
+                    #for x in ReturnCode:
+                        #print(hex(x).upper()[2::],end=' ')
+                    ser.SerialWrite(ReturnCode)
+                else:
+                    print('CommandLen Error')
+            else:
+                print('EDC Error')
+
 else:
     CMDL=CMDlink()
     CmdFileName=CMDL.GetCMDGroup('./Commands')
@@ -46,23 +61,40 @@ else:
     for x in CmdlinksInfo.keys():
         CmdlinksList.append(x)
 
-    UserCmd=input('請輸入')
-    CmdName = CmdlinksList[eval(UserCmd)-1]
-    cmd = CmdlinksInfo[CmdName]['commmand']
-    cmd = CMDL.GetHexCommand(cmd)
-    CMDType=CheckCMDType(cmd)
-    CMDType = AdvenceCheck(cmd, CMDType)
-    ReturnCode = FakeReturnCodeFuc(CMDType)
-    for x in ReturnCode:
-        print(hex(x).upper()[2::],end=' ')
+    # UserCmd=input('請輸入')
+    # CmdName = CmdlinksList[eval(UserCmd)-1]
+    # cmd = CmdlinksInfo[CmdName]['commmand']
+    # cmd = CMDL.GetHexCommand(cmd)
+    # if CheckEDC(cmd)==True:
+    #     CMDType=CheckCMDType(cmd)
+    #     if CheckCmdTypeLen(cmd,CMDType)==True:
+    #         CMDType = AdvenceCheck(cmd, CMDType)
+    #         print(CMDType)
+    #         ReturnCode = CrudeReturnCode(CMDType)
+    #         for x in ReturnCode:
+    #             print(hex(x).upper()[2::],end=' ')
+    #     else:
+    #         print('CommandLen Error')
+    # else:
+    #     print('EDC Error')
 
 
 #批量測試使用
-    # for UserCmd in range(len(CmdlinksList)):
-    #     CmdName = CmdlinksList[UserCmd]
-    #     cmd = CmdlinksInfo[CmdName]['commmand']
-    #     cmd = CMDL.GetHexCommand(cmd)
-    #     CMDType=CheckCMDType(cmd)
-    #     CMDType=AdvenceCheck(cmd, CMDType)
-    #     ReturnCode=ReturnCodeFuc(CMDType)
-    #     print(ReturnCode)
+    for UserCmd in range(len(CmdlinksList)):
+        CmdName = CmdlinksList[UserCmd]
+        print()
+        print('Test:',CmdName)
+        cmd = CmdlinksInfo[CmdName]['commmand']
+        cmd = CMDL.GetHexCommand(cmd)
+        if CheckEDC(cmd)==True:
+            CMDType=CheckCMDType(cmd)
+            if CheckCmdTypeLen(cmd,CMDType)==True:
+                CMDType = AdvenceCheck(cmd, CMDType)
+                print(CMDType)
+                ReturnCode = CrudeReturnCode(CMDType)
+                for x in ReturnCode:
+                    print(hex(x).upper()[2::],end=' ')
+            else:
+                print('CommandLen Error')
+        else:
+            print('EDC Error')

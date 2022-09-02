@@ -64,9 +64,18 @@ class SerialCtrl:
         return data
 
     def GetDebugInfo(self):
-        data=self.ser.readline()
-        print(data)
-        return data
+        data=self.ser.readlines()
+        # print(data)
+        HexCMD = bytearray()
+        if len(data)>1:
+            for x in data:
+                for y in x:
+                    HexCMD.append(y)
+        elif len(data)==1:
+            for x in data[0]:
+                HexCMD.append(x)
+
+        return HexCMD
 
     def SerialClose(self):
         self.ser.close()
