@@ -39,15 +39,18 @@ if TestMode=='Serial':
         if len(cmd)!=0:
             if CheckEDC(cmd)==True:
                 CMDType=CheckCMDType(cmd)
-                if CheckCmdTypeLen(cmd,CMDType)==True:
-                    CMDType = AdvenceCheck(cmd, CMDType)
+                if CMDType=='ErrCMDType':
                     print(CMDType)
-                    ReturnCode = CrudeReturnCode(CMDType)
-                    #for x in ReturnCode:
-                        #print(hex(x).upper()[2::],end=' ')
-                    ser.SerialWrite(ReturnCode)
                 else:
-                    print('CommandLen Error')
+                    if CheckCmdTypeLen(cmd,CMDType)==True:
+                        CMDType = AdvenceCheck(cmd, CMDType)
+                        print(CMDType)
+                        ReturnCode = CrudeReturnCode(CMDType)
+                        #for x in ReturnCode:
+                            #print(hex(x).upper()[2::],end=' ')
+                        ser.SerialWrite(ReturnCode)
+                    else:
+                        print('CommandLen Error')
             else:
                 print('EDC Error')
 

@@ -38,7 +38,7 @@ class SerialCtrl:
     def ConnectSerial(self,COMNumber,BaudRate):
         try:
             print('連接',COMNumber)
-            self.ser=serial.Serial(COMNumber,eval(BaudRate),timeout=0.5)
+            self.ser=serial.Serial(COMNumber,eval(BaudRate),timeout=0.01)
         except:
             print('連接失敗')
 
