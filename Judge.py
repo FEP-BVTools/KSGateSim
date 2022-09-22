@@ -215,6 +215,7 @@ def CrudeReturnCode(CMDType):
     S = 0x02
     ReturnData = []
     APDU_OK = [0x90, 0x00]
+    APDU_ERR= [0x62,0x21]
     #-----------------------------------------------------------------------------------
     if CMDType == 'PLC Reboot':
         ReturnData = APDU_OK
@@ -251,6 +252,9 @@ def CrudeReturnCode(CMDType):
         ReturnData=[0x14,0x01,0x19,0x20,0x03,0x01,0x00,0x00,0x01,0x02,0x01,0x05,0x00,0x05,0x03,0x0A,0x90,0x00]
     elif CMDType == 'Following Alert':
         ReturnData = [0x00,0x00,0x00,0x00,0x00,0x00,0x90,0x00]
+
+    elif CMDType=='ErrResponse':
+        ReturnData = APDU_ERR
 
     # -------------------------------------------------------------------------------
     ReturnCodeLen = len(ReturnData)

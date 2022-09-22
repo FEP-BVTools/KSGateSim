@@ -1,7 +1,7 @@
 #程式需求:
 #須回應錯誤代碼
 #需可建立目前閘門狀態
-#
+
 from SerialTest import SerialCtrl
 from Utility import CMDlink
 from  Judge import CheckCMDType,AdvenceCheck,CheckEDC,CrudeReturnCode,CheckCmdTypeLen
@@ -12,13 +12,8 @@ def DisplayCmdLinks(CmdlinksInfo):
        i+=1
        print('{}.{}'.format(i,x))
 
-
-
-
 TestModeList=['User','Serial']
-
 TestMode=TestModeList[1]
-
 
 if TestMode=='Serial':
     #連接埠設定
